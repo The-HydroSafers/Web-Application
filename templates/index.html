@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="../static/css/all.min.css" />
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <title>Home -AI-Hydrosafe</title>
+</head>
+
+<body>
+    <header>
+        <!-- As a heading -->
+        <nav class="navbar navbar-light bg-light">
+            <span class="navbar-brand pl-5 title mb-0 h1">Hydrosafe</span>
+        </nav>
+    </header>
+    <section>
+        <div class="banner">
+            <div class="container mb-5">
+                <div class="mt-5 pt-5 mb-5">
+                    <div class="banner-section">
+                        <h1>Hydrosafe</h1>
+                        <div class="col-sm-11">
+                            <h4>
+                                Hydrosafe is an Artificial Intelligence(AI)- based application that uses Deep learning agents to detect harmful bacteria and contaminants in water
+                            </h4>
+
+                            <div class="mt-5">
+                                <button class="btn btn-button btn-lg">Try it</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="form mt-5 mb-5">
+                <form action="{{url_for('predict')}}" method="post">
+                    <h4 class="text-center">Upload an image</h4>
+                    <label for="upload-button">
+              <i class="fas fa-upload"></i> &nbsp; Choose A Photo
+            </label>
+                    <figure class="image-container">
+                        <img id="chosen-image" />
+                        <figcaption id="file-name"></figcaption>
+                    </figure>
+
+                    <input type="file" class="form-control" required id="upload-button" accept="image/*" />
+                    <div class="form-group mt-3" style="float: right">
+                        <button type="submit" class="btn btn-button btn-lg">
+                Sumbit
+              </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script src="../static/js/jquery.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script src="../static/js/index.js"></script>
+</body>
+
+</html>
