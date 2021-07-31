@@ -42,7 +42,10 @@
     <section>
         <div class="container">
             <div class="form mt-5 mb-5">
-                <form action="{{url_for('predict')}}" method="post">
+                <p>
+                    {% with messages = get_flashed_messages() %} {% if messages %} Label: {{ messages[0] }} Accuracy: {{ messages[1] }} {% endif %} {% endwith %}
+                </p>
+                <form method="post" action="/" enctype="multipart/form-data">
                     <h4 class="text-center">Upload an image</h4>
                     <label for="upload-button">
               <i class="fas fa-upload"></i> &nbsp; Choose A Photo
@@ -52,12 +55,10 @@
                         <figcaption id="file-name"></figcaption>
                     </figure>
 
-                    <input type="file" class="form-control" required id="upload-button" accept="image/*" />
-                    <div class="form-group mt-3" style="float: right">
-                        <button type="submit" class="btn btn-button btn-lg">
-                Sumbit
-              </button>
-                    </div>
+                    <input type="file" class="form-control" name="file" autocomplete="off" required id="upload-button" accept="image/*" />
+                    <p>
+                        <input type="submit" value="Submit" />
+                    </p>
                 </form>
             </div>
         </div>
@@ -69,3 +70,19 @@
 </body>
 
 </html>
+
+<!-- 
+<h2>Select a file to upload</h2>
+<p>
+    {% with messages = get_flashed_messages() %} {% if messages %} Label: {{ messages[0] }} Accuracy: {{ messages[1] }} {% endif %} {% endwith %}
+</p>
+<form method="post" action="/" enctype="multipart/form-data">
+    <dl>
+        <p>
+            <input type="file" name="file" autocomplete="off" required>
+        </p>
+    </dl>
+    <p>
+        <input type="submit" value="Submit">
+    </p>
+</form> -->

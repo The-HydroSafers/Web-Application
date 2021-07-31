@@ -1,4 +1,5 @@
 from __future__ import print_function, division
+from efficientnet_pytorch import EfficientNet
 
 import torch
 import torch.nn as nn
@@ -35,12 +36,13 @@ image_datasets = {x: datasets.ImageFolder(os.path.join(data_dir, x),
                                           data_transforms[x])
                   for x in ['train', 'val']}
 dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=4,
-                                             shuffle=True, num_workers=4)
-              for x in ['train', 'val']}
+                                              shuffle=True, num_workers=4)
+               for x in ['train', 'val']}
 dataset_sizes = {x: len(image_datasets[x]) for x in ['train', 'val']}
 class_names = image_datasets['train'].classes
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
 
 def imshow(inp, title=None):
     """Imshow for Tensor."""
@@ -62,6 +64,8 @@ inputs, classes = next(iter(dataloaders['train']))
 out = torchvision.utils.make_grid(inputs)
 
 #imshow(out, title=[class_names[x] for x in classes])
+
+
 def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
     since = time.time()
 
@@ -129,6 +133,8 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
     # load best model weights
     model.load_state_dict(best_model_wts)
     return model
+
+
 def visualize_model(model, num_images=6):
     was_training = model.training
     model.eval()
@@ -154,7 +160,7 @@ def visualize_model(model, num_images=6):
                     model.train(mode=was_training)
                     return
         model.train(mode=was_training)
-from efficientnet_pytorch import EfficientNet
+
 
 model_ft = EfficientNet.from_pretrained('efficientnet-b0')
 
@@ -171,4 +177,4 @@ exp_lr_scheduler = lr_scheduler.StepLR(optimizer_ft, step_size=7, gamma=0.1)
 
 model_ft = train_model(model_ft, criterion, optimizer_ft, exp_lr_scheduler,
                        num_epochs=5)
-torch.save(model_ft.state_dict(), 'use.pth')
+torch.save(model_ft.state_dict(), 'hydro.h5')
