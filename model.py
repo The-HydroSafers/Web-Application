@@ -7,8 +7,11 @@ import torch.optim as optim
 from torch.optim import lr_scheduler
 import numpy as np
 import torchvision
+from torch.autograd import Variable
 from torchvision import datasets, models, transforms
 import matplotlib.pyplot as plt
+from onnx_tf.backend import prepare
+import onnx
 import time
 import os
 import copy
@@ -177,4 +180,13 @@ exp_lr_scheduler = lr_scheduler.StepLR(optimizer_ft, step_size=7, gamma=0.1)
 
 model_ft = train_model(model_ft, criterion, optimizer_ft, exp_lr_scheduler,
                        num_epochs=5)
-torch.save(model_ft.state_dict(), 'hydro.h5')
+torch.save(model_ft.state_dict(), 'model.pth')
+#device = torch.device("cuda")
+
+trained_model = model_ft.to(device)
+trained_model.load_state_dict(torch.load('model.pth'))
+dummy_input = Variable(torch.randn(1, 1, 28, 28))
+torch.onnx.export(trained_model, dummy_input, "mnist.onnx")
+model = onnx.load('mnist.onnx')
+tf_rep = prepare(model)
+tf_rep.export_graph('model.pb')
