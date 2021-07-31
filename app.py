@@ -25,7 +25,7 @@ MODEL_PATH = 'hydro.h5'
 
 # Load your trained model
 model = load_model(MODEL_PATH)
-model._make_predict_function()          # Necessary
+#model._make_predict_function()          # Necessary
 # print('Model loaded. Start serving...')
 
 
